@@ -12,6 +12,6 @@
         <title>Welcome to LRT-2</title>
     </head>
     <body>
-        <h1>Wesdlcome to the LRT 2 Billing System.</h1>
+        <h1>Wesdsdlcome to the LRT 2 Billing System.</h1>
     </body>
 </html>
