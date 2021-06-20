@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <context-param>
+        <param-name>name</param-name>
+        <param-value>value</param-value>
+    </context-param>
+    
+    <servlet>
+        <servlet-name>TransactionPortal</servlet-name>
+        <jsp-file>Transacting/transactionPortal.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TransactionPortal</servlet-name>
+        <url-pattern>/LRT2Portal</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Index</servlet-name>
+        <jsp-file>index.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Index</servlet-name>
+        <url-pattern>/Index</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <jsp-file>login.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/BeepLogin</url-pattern>
+    </servlet-mapping>
+   
+    <servlet>
+        <servlet-name>Register</servlet-name>
+        <jsp-file>register.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Register</servlet-name>
+        <url-pattern>/BeepRegister</url-pattern>
+    </servlet-mapping>
+    
+    
+ 
+    
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/errorSession.jsp</location>
+    </error-page>
+</web-app>
