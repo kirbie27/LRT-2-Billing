@@ -45,7 +45,44 @@
         <url-pattern>/BeepRegister</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>SingleJourneyFareCompute</servlet-name>
+        <servlet-class>LRT2_Controllers.SingleJourneyTransactionConfirmation</servlet-class>
+        
+        <init-param>
+            <param-name>jdbcClassName</param-name>
+            <param-value>org.apache.derby.jdbc.ClientDriver</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbUserName</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbPassword</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>jdbcDriverURL</param-name>
+            <param-value>jdbc:derby</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbHostName</param-name>
+            <param-value>localhost</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbPort</param-name>
+            <param-value>1527</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databaseName</param-name>
+            <param-value>LRT2Cards</param-value>
+        </init-param>
+    </servlet>
     
+    <servlet-mapping>
+        <servlet-name>SingleJourneyFareCompute</servlet-name>
+        <url-pattern>/ConfirmTravel</url-pattern>
+    </servlet-mapping>
  
     
     <session-config>
