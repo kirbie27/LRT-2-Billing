@@ -5,6 +5,10 @@
         <param-value>value</param-value>
     </context-param>
     
+    <listener>
+        <listener-class>LRT2_Models.LRT2Listener</listener-class>
+    </listener>
+    
     <servlet>
         <servlet-name>TransactionPortal</servlet-name>
         <jsp-file>Transacting/transactionPortal.jsp</jsp-file>

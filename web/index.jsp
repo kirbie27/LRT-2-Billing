@@ -9,6 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" http-equiv="Content-Type" content="width=device-width, initial-scale=1.0, text/html; charset=UTF-8">
         <title>Welcome to LRT-2</title>
         
         <style>
@@ -71,6 +72,28 @@
                 background-color: transparent;
                 font-size: clamp(40px,100%, 50px) !important;
                 border-radius: 0px;
+            }
+            
+            @media only screen and (max-width: 550px)
+            {
+                body
+                {
+                    background-color: #0A2342; 
+                }
+                
+                section
+                {
+                    border-radius: 0px;
+                    height: 80vh !important;
+                    width: 100vh !important;
+                }
+                
+                section button
+                {
+                    padding: 30px;
+                    border-radius: 0px;
+                }
+                
             }
         </style>
     </head>
