@@ -63,7 +63,7 @@ public class SingleJourneyTransactionConfirmation extends HttpServlet {
         ServletContext sc = request.getServletContext();
         String from = request.getParameter("fromWhere");
         String to = request.getParameter("toWhere");
-        
+        String valid = "true";
         String findFare = "SELECT FARE FROM SINGLE_JOURNEY_FARES where FROM_WHERE = ? and TO_WHERE = ?";
         
         try
@@ -83,12 +83,15 @@ public class SingleJourneyTransactionConfirmation extends HttpServlet {
         else
         {
             //invalid destination
+            fare = "INVALID TRANSACTION";
+            valid = "false";
         }
          sc.setAttribute("from",from);
-          sc.setAttribute("to",to);
-           sc.setAttribute("fare",fare);
+         sc.setAttribute("to",to);
+         sc.setAttribute("fare",fare);
+         sc.setAttribute("open", "flex");
         
-        sc.setAttribute("confirm","Confirmed");
+        sc.setAttribute("valid",valid);
         System.out.println("Napunta dito!");
         
         response.sendRedirect("LRT2Portal");
