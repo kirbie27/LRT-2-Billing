@@ -24,8 +24,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Kirby Wenceslao
  */
-@WebServlet(name = "SingleJourneyTransactionConfirmation", urlPatterns = {"/SingleJourneyTransactionConfirmation"})
-public class SingleJourneyTransactionConfirmation extends HttpServlet {
+@WebServlet(name = "SingleJourneySuccess", urlPatterns = {"/SingleJourneySuccess"})
+public class SingleJourneySuccess extends HttpServlet {
+
     Connection conn;
      
     public void init(ServletConfig config) throws ServletException 
@@ -56,51 +57,53 @@ public class SingleJourneyTransactionConfirmation extends HttpServlet {
             System.out.println("ClassNotFoundException error occured - " + nfe.getMessage());
         }
     }
- 
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException 
+    {
         
+        System.out.println("POKUSS!");
+        //getServletContext and the details
         ServletContext sc = request.getServletContext();
-        String from = request.getParameter("fromWhere");
-        String to = request.getParameter("toWhere");
-
-        String valid = "true";
-        String findFare = "SELECT FARE FROM SINGLE_JOURNEY_FARES where FROM_WHERE = ? and TO_WHERE = ?";
-        
+        String from = (String) sc.getAttribute("from");
+        String to = (String) sc.getAttribute("to");
+        String fare = (String) sc.getAttribute("fare");
+        //get transaction content
+        String query1 = "SELECT * FROM LRT_TRANSACTIONS";
+        String query2 = "INSERT INTO LRT_TRANSACTIONS VALUES(?,?,?,?,?)";
+                 
         try
         {
-        PreparedStatement ps = conn.prepareStatement(findFare);
-        ps.setString(1, from);
-        ps.setString(2, to);
-        
-     
-                
-        ResultSet results = ps.executeQuery();
-        String fare = "";
-        if(results.next())
-        {
-            fare = results.getString("FARE");
-        }
-        else
-        {
-            //invalid destination
-            fare = "INVALID TRANSACTION";
-            valid = "false";
-        }
-         sc.setAttribute("from",from);
-         sc.setAttribute("to",to);
-         sc.setAttribute("fare",fare);
-         sc.setAttribute("open", "flex");
-        
-        sc.setAttribute("valid",valid);        
-        response.sendRedirect("LRT2Portal");
-        
+             PreparedStatement ps = conn.prepareStatement(query1);
+             ResultSet transactions = ps.executeQuery();
+             
+             int transactionNumber = 1;
+             
+             while (transactions.next())
+             {
+                 transactionNumber += 1;
+             }
+             
+             ps = conn.prepareStatement(query2);
+             ps.setString(1, ""+transactionNumber);
+             ps.setString(2, ""+0);
+             ps.setString(3, fare);
+             ps.setString(4, from);
+             ps.setString(5, to);                              
+             ps.executeUpdate();
+             
+             response.sendRedirect("SJSuccess");
+              
         }
         catch(SQLException sqle)
         {
-            
+            sqle.printStackTrace();
         }
- 
+        
+       
+                
+        
+   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

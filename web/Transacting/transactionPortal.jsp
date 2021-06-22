@@ -34,13 +34,13 @@
                 align-items: center;
                 justify-content: center;
                 background-color: #FFA647;
-                
+                overflow: scroll;
             }
             
             body section
             {
                 box-sizing: border-box;
-                min-height: clamp(400px, 50vh, 500vh);
+                min-height: clamp(400px, 50vh, 500px);
                 min-width: clamp(350px, 100vw, 500px);
                 display: flex;
                 flex-direction: column;
@@ -170,13 +170,13 @@
             {     
                
                 box-sizing: border-box;
-                 padding: 30px;
+                padding: 30px;
                 -webkit-animation-name: slideIn;
                 -webkit-animation-duration: 0.4s;
                 animation-name: slideIn;
                 animation-duration: 0.4s;
-                min-height: clamp(400px, 50vh, 500vh);
-                min-width: clamp(350px, 100vw, 500px);
+                min-height: clamp(600px, 55vh, 550px);
+                min-width: clamp(350px, 100vw, 550px);
                 background-color: #F7F0F5;
                 border: 5px solid black;
                 display: flex;
@@ -198,6 +198,13 @@
                     width: 100vh !important;
                     
                 }
+                
+                
+                section
+                {
+                    box-shadow: 0px 3px #FFA647 !important;
+                }
+                
                
             }
         </style>
@@ -234,7 +241,7 @@
         %>
         
         <div id = "transactionModal" class = "modal"  style = <% out.println(String.format("\"display: %s;\"",open)); %> >
-            <form class ="mContent" action ="Index" method = "POST">
+            <form class ="mContent" action ="SJTransactionSuccess" method = "POST">
                 <h3>Transaction Summary</h3>
                 <hr>
                 <%
@@ -257,7 +264,7 @@
                     if (valid.equals("true"))
                     {
                 %>
-                <input class = "summaryButtons" type="submit" name = "Confirm" value ="Confirm Transaction">
+                <input class = "summaryButtons" type="submit" value ="Confirm Transaction">
                 <%
                     }
                 %>
@@ -284,7 +291,7 @@
                        for (int i = 0; i < stations.size(); i++)
                        {
                            String s = stations.get(i);
-                           String option = String.format("<option value = %s>%s</option>",s,s);
+                           String option = String.format("<option value = '%s'>%s</option>",s,s);
                            out.println(option);
                        }
                     %>
@@ -296,7 +303,7 @@
                        for (int i = 0; i < stations.size(); i++)
                        {
                            String s = stations.get(i);
-                           String option = String.format("<option value = %s>%s</option>",s,s);
+                           String option = String.format("<option value = '%s'>%s</option>",s,s);
                            out.println(option);
                        }
                      
