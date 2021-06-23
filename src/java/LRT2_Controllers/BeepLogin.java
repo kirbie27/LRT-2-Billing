@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Kirby Wenceslao
  */
 @WebServlet(name = "SingleJourneySuccess", urlPatterns = {"/SingleJourneySuccess"})
-public class SingleJourneySuccess extends HttpServlet {
+public class BeepLogin extends HttpServlet {
 
     Connection conn;
      
@@ -62,37 +62,39 @@ public class SingleJourneySuccess extends HttpServlet {
             throws ServletException, IOException 
     {
         
-  
-        //getServletContext and the details
-        ServletContext sc = request.getServletContext();
-        String from = (String) sc.getAttribute("from");
-        String to = (String) sc.getAttribute("to");
-        String fare = (String) sc.getAttribute("fare");
-        //get transaction content
-        String query1 = "SELECT * FROM LRT_TRANSACTIONS";
-        String query2 = "INSERT INTO LRT_TRANSACTIONS VALUES(?,?,?,?,?)";
-                 
+        
+
+        //get login inputs
+        
+        String username = request.getParameter("unameL");
+        String password = request.getParameter("pwordL");
+        
+
+        
+        String query1 = "SELECT * FROM BEEP_CARDS where CARD_NUMBER = ? and PASSWORD = ?";
+             
         try
         {
-             PreparedStatement ps = conn.prepareStatement(query1);
-             ResultSet transactions = ps.executeQuery();
+            ServletContext sc = request.getServletContext();
+            
+            
+            PreparedStatement ps = conn.prepareStatement(query1);
+            ps.setString(1,username);
+            ps.setString(2,password);
+            
+            ResultSet loginResults = ps.executeQuery();
+            
+            if (loginResults.next())
+            {
+                response.sendRedirect("BeepLRT2Portal");
+            }
+            else
+            {
+                sc.setAttribute("errorMessage","Incorrect Login Credentials");
+                response.sendRedirect("BeepLogin");
+            }
              
-             int transactionNumber = 1;
-             
-             while (transactions.next())
-             {
-                 transactionNumber += 1;
-             }
-             
-             ps = conn.prepareStatement(query2);
-             ps.setString(1, ""+transactionNumber);
-             ps.setString(2, ""+0);
-             ps.setString(3, fare);
-             ps.setString(4, from);
-             ps.setString(5, to);                              
-             ps.executeUpdate();
-             
-             response.sendRedirect("SJSuccess");
+            
               
         }
         catch(SQLException sqle)

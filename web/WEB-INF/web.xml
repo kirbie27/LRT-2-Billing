@@ -18,6 +18,16 @@
         <url-pattern>/LRT2Portal</url-pattern>
     </servlet-mapping>
     
+      <servlet>
+        <servlet-name>TransactionPortalBeep</servlet-name>
+        <jsp-file>Transacting/transactionPortalBeep.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TransactionPortalBeep</servlet-name>
+        <url-pattern>/BeepLRT2Portal</url-pattern>
+    </servlet-mapping>
+    
+    
     <servlet>
         <servlet-name>SJSuccess</servlet-name>
         <jsp-file>Transacting/SJSuccess.jsp</jsp-file>
@@ -130,6 +140,45 @@
     <servlet-mapping>
         <servlet-name>SingleJourneySuccess</servlet-name>
         <url-pattern>/SJTransactionSuccess</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+        <servlet-name>BeepLoginConfirmation</servlet-name>
+        <servlet-class>LRT2_Controllers.BeepLogin</servlet-class>
+        
+        <init-param>
+            <param-name>jdbcClassName</param-name>
+            <param-value>org.apache.derby.jdbc.ClientDriver</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbUserName</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbPassword</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>jdbcDriverURL</param-name>
+            <param-value>jdbc:derby</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbHostName</param-name>
+            <param-value>localhost</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbPort</param-name>
+            <param-value>1527</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databaseName</param-name>
+            <param-value>LRT2Cards</param-value>
+        </init-param>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>BeepLoginConfirmation</servlet-name>
+        <url-pattern>/ConfirmBeepCard</url-pattern>
     </servlet-mapping>
     
     <session-config>
