@@ -187,9 +187,9 @@
                 <hr>   
 
                 
-                <input type="submit" value = "LOGIN" class = "loginButtons">
-                <a onclick=scanMessage() class = "loginButtons">SCAN BEEP CARD (alternative)</a>
-                <a href = 'Index' class = "loginButtons">GO BACK TO MENU</a>
+                <input type="submit" value = "Login" class = "loginButtons">
+                <a onclick=scanMessage() class = "loginButtons">Scan Beep Card (alternative)</a>
+                <a href = 'Index' class = "loginButtons">Go Back To Menu</a>
             </form>
                  
         

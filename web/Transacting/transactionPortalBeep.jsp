@@ -217,15 +217,6 @@
                 modal.style.display = "none";
             }
             
-            window.onclick = function(event) 
-            {
-                var modal = document.getElementById("transactionModal");
-                if (event.target == modal) 
-                {
-                  modal.style.display = "none";
-                }
-            }
- 
         </script>
     </head>
     <body>
@@ -258,6 +249,7 @@
                   out.println("<p class = 'text'>You are here: "+ from+"</p>");  
                   out.println("<p class = 'text'>Your destination: "+ to+"</p>"); 
                   out.println("<p class = 'text'>Your fare: "+ fare+"</p>"); 
+
                 %>
                 
                 <%
@@ -310,8 +302,8 @@
                     %>
                 </select>
        
-                <input type="submit" value = "COMPUTE FARE" class = "confirmButtons">
-                <a href = 'Index' class = "confirmButtons">GO BACK TO MENU</a>
+                <input type="submit" value = "Compute Fare" class = "confirmButtons">
+                <a href = 'Index' class = "confirmButtons">Go Back To Menu</a>
             </form>
                  
         
