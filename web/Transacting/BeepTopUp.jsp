@@ -13,7 +13,7 @@
         <meta name="viewport" http-equiv="Content-Type" content="width=device-width, initial-scale=1.0, text/html; charset=UTF-8">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200&display=swap" rel="stylesheet">
-        <title>Beep Transaction Portal</title>
+        <title>Top Up</title>
         
         <style>
             
@@ -33,7 +33,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background-color: #FFC485;
+                 background-color: #0A2342;
                 overflow: scroll;
             }
             
@@ -45,13 +45,11 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: space-around;
-           
                 padding: 20px;
-                background-color: #0A2342;
-            
+                background-color: rgb(247, 240, 245);
                 border-radius: 40px 0px;
                 box-shadow: 5px 5px bisque;
-                color: white;
+                color: black;
                 align-items: center;
                 
                
@@ -64,7 +62,7 @@
             body section form 
             {
                 box-sizing: border-box;
-                height: 400px;
+                height: 300px;
                 width: 100%;
                 display: flex;
                 flex-direction: column;
@@ -79,10 +77,17 @@
                 padding: 10px;
                 font-weight: bold;
             }
+            #amount
+            {
+                font-size: 20px;
+                padding: 10px;
+                
+       
+            }
             .confirmButtons
             {
                 text-align: center;
-                background-color: #3F88C5;
+                background-color: #D08AC8;
                 text-decoration: none;
                 border: none;
                 font-size: 20px;
@@ -96,8 +101,10 @@
             .confirmButtons:hover
             {
                 transition: linear 0.1s;
-                background-color: #8F3985;
-                font-weight: 900;
+                background-color: #FFA647;
+                 color: #0A2342;
+                font-weight: bold;
+   
             }
             
             h3
@@ -126,27 +133,18 @@
                 font-weight: 900;
             }
             
-            
+            #err
+            {
+                text-align: center;
+                font-weight: bold;
+                color: A23F93;
+            }
             section img
             {
             
                 width: 50px;
                 height: 40px;
                 margin: 5px;
-            }
-            
-            section form select
-            {
-                padding: 10px;
-                cursor: pointer;
-                font-size: 20px;
-                font-weight:  500;
- 
-            }
-            
-            section form select option
-            {
-                font-size: 20px;
             }
             
             #transactionModal
@@ -165,6 +163,7 @@
                 
              
             }
+        
 
             .mContent
             {     
@@ -188,7 +187,7 @@
             {
                 body
                 {
-                    background-color: #0A2342; 
+                   background-color: rgb(247, 240, 245);
                 }
                 
                 section, .mContent
@@ -222,47 +221,55 @@
     <body>
         <%
              ServletContext sc = getServletContext(); 
+             String balanceT = "INVALID";
+             String amount = "";
+             String afterBalance = "";
+             String errorTopUp = "";
+             
+             if(sc.getAttribute("amount") != null)
+             {
+                 amount = (String) sc.getAttribute("amount");
+             }
+             
+             if(sc.getAttribute("afterBalance") != null)
+             {
+                 afterBalance = (String) sc.getAttribute("afterBalance");
+             }
+             
+             if(sc.getAttribute("errorTopUp") != null)
+             {
+                errorTopUp = (String) sc.getAttribute("errorTopUp");
+             }
+             
+             if(sc.getAttribute("balanceT") != null)
+             {
+                 balanceT = (String) sc.getAttribute("balanceT");
+             }
+             
              String open = "none";
              
-             if (sc.getAttribute("openB") != null)
+             if (sc.getAttribute("openTopUp") != null)
              {
-                 open = (String) sc.getAttribute("openB");
-                 sc.removeAttribute("openB");
+                 open = (String) sc.getAttribute("openTopUp");
+                 sc.removeAttribute("openTopUp");
              }
         %>
         
         <div id = "transactionModal" class = "modal"  style = <% out.println(String.format("\"display: %s;\"",open)); %> >
-            <form class ="mContent" action ="BeepTransactionSuccess" method = "POST">
+            <form class ="mContent" action ="" method = "POST">
                 <h3>Transaction Summary</h3>
                 <hr>
                 <%
-                  String balance = (String) sc.getAttribute("balance");
-                  String remBalance = (String) sc.getAttribute("remBalance");
-                  String from = (String) sc.getAttribute("fromB");
-                  String to = (String) sc.getAttribute("toB");
-                  String fare = (String) sc.getAttribute("fareB");
-                  String valid = "";
-                  if (sc.getAttribute("validB") != null)
-                  {
-                    valid = (String) sc.getAttribute("validB");
-                    sc.removeAttribute("validB");
-                  }
-                  out.println("<p class = 'text'>Balance: "+ balance+"</p>");
-                  out.println("<p class = 'text'>You are here: "+ from+"</p>");  
-                  out.println("<p class = 'text'>Your destination: "+ to+"</p>"); 
-                  out.println("<p class = 'text'>Your fare: "+ fare+"</p>"); 
-                  out.println("<p class = 'text'>Remaining Balance after Transaction: "+ remBalance+"</p>");
+       
+                  out.println("<p class = 'text'>Current Balance: "+balanceT+"</p>");  
+                  out.println("<p class = 'text'>Amount to Top Up: "+amount+"</p>"); 
+                  out.println("<p class = 'text'>Balance after Top Up: "+ afterBalance+"</p>"); 
+
                 %>
                 
-                <%
-                    if (valid.equals("true"))
-                    {
-                %>
-                <input class = "summaryButtons" type="submit" value ="Confirm Transaction">
-                <%
-                    }
-                %>
-                <a class = "summaryButtons" href = "" onclick = "closeModal()">Cancel Transaction</a>
+
+                <input class = "summaryButtons" type="submit" value ="Confirm Top Up">
+                <a class = "summaryButtons" href = "" onclick = "closeModal()">Cancel Top Up</a>
             </form>
               
         </div>    
@@ -270,44 +277,19 @@
         <section>
             <img src ="Assets/Pictures/LOGO.png">
             <h1>
-                LRT2 Beep Transaction Portal
+                LRT2 Beep Top Up
             </h1>
             
-            <form method = "POST" action = "ConfirmBeepTravel">
-                <label for="fromWhereB">Where are you right now?</label>  
-                <select id = "fromWhere" name = "fromWhereB">
-                    <%
-                      
-                       Lrt2Stations data = (Lrt2Stations) sc.getAttribute("stations"); 
-                       ArrayList<String> stations = data.getStations();
-                       
-                       for (int i = 0; i < stations.size(); i++)
-                       {
-                           String s = stations.get(i);
-                           String option = String.format("<option value = '%s'>%s</option>",s,s);
-                           out.println(option);
-                       }
-                    %>
-                </select>
-     
-                <label for="toWhereB">Where are you going?</label>  
-                <select id = "toWhere" name = "toWhereB">
-                    <%
-                       for (int i = 0; i < stations.size(); i++)
-                       {
-                           String s = stations.get(i);
-                           String option = String.format("<option value = '%s'>%s</option>",s,s);
-                           out.println(option);
-                       }
-                     
-                    %>
-                </select>
-       
-                <input type="submit" value = "Compute Fare" class = "confirmButtons">
+            <form method = "POST" action = "BeepTopUpConfirmation">
+                 <label for="current">Current Balance: <%= balanceT%></label>  
+                <label for="amount">How much do you want to Top Up? (Minimum of 5 Php)</label>  
+                
+                <input id = "amount" name = "amount" type ="text" placeholder = "Enter amount to Top Up" required>
+                <p id = "err"><%= errorTopUp %>
+                <hr>
+                <input type="submit" value = "Top Up" class = "confirmButtons">
                 <a href = 'BeepMenu' class = "confirmButtons">Go Back To Beep Menu</a>
             </form>
-                 
-        
         </section>
             
        

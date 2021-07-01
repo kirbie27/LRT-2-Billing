@@ -12,6 +12,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -25,8 +27,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Kirby Wenceslao
  */
-@WebServlet(name = "SingleJourneySuccess", urlPatterns = {"/SingleJourneySuccess"})
-public class BeepLogin extends HttpServlet {
+@WebServlet(name = "BeepJourneySuccess", urlPatterns = {"/BeepJourneySuccess"})
+public class BeepJourneySuccess extends HttpServlet {
 
     Connection conn;
      
@@ -60,43 +62,79 @@ public class BeepLogin extends HttpServlet {
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException 
-    {
+            throws ServletException, IOException {
         
         
-         HttpSession session = request.getSession();
-        //get login inputs
+        HttpSession session = request.getSession();
+        String CardNumber = (String) session.getAttribute("CardNumber");
+      
         
-        String username = request.getParameter("unameL").trim();
-        String password = request.getParameter("pwordL").trim();
+        //getServletContext and the details
+        ServletContext sc = request.getServletContext();
         
-
+        String remBalance = (String) sc.getAttribute("remBalance");
+          
+        String from = (String) sc.getAttribute("fromB");
+        String to = (String) sc.getAttribute("toB");
+        String fare = (String) sc.getAttribute("fareB");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");  
+        LocalDateTime now = LocalDateTime.now();  
+        String date = dtf.format(now);
+        //get transaction content
+        String query1 = "SELECT * FROM LRT_TRANSACTIONS";
+        String query2 = "INSERT INTO LRT_TRANSACTIONS VALUES(?,?,?,?,?,?)";
         
-        String query1 = "SELECT * FROM BEEP_CARDS where CARD_NUMBER = ? and PASSWORD = ?";
-             
+        
+        String getBeepTransactions = "SELECT TRANSACTION_COST FROM LRT_TRANSACTIONS WHERE CARD_NUMBER = ?";
+        String updateCard = "UPDATE BEEP_CARDS SET STORED_VALUE = ?, TOTAL_TRANSACTIONS = ?, TOTAL_EXPENSES = ? WHERE CARD_NUMBER = ?";
         try
         {
-            ServletContext sc = request.getServletContext();
-            
-            
-            PreparedStatement ps = conn.prepareStatement(query1);
-            ps.setString(1,username);
-            ps.setString(2,password);
-            
-            ResultSet loginResults = ps.executeQuery();
-            
-            if (loginResults.next())
-            {
-                session.setAttribute("CardNumber", username);
-                response.sendRedirect("BeepMenu");
-            }
-            else
-            {
-                sc.setAttribute("errorMessage","Incorrect Login Credentials");
-                response.sendRedirect("BeepLogin");
-            }
+            //insert the new transaction
+             PreparedStatement ps = conn.prepareStatement(query1);
+             ResultSet transactions = ps.executeQuery();
              
-            
+             int transactionNumber = 1;
+             
+             while (transactions.next())
+             {
+                 transactionNumber += 1;
+             }
+             
+             ps = conn.prepareStatement(query2);
+             ps.setString(1, ""+transactionNumber);
+             ps.setString(2, CardNumber);
+             ps.setString(3, fare);
+             ps.setString(4, from);
+             ps.setString(5, to);    
+             ps.setString(6, date);
+             ps.executeUpdate();
+             
+             
+             //update the beep card information (TOTAL_TRANSACTIONS, TOTAL_EXPENSES, STORED_VALUE)
+             
+    
+             ps = conn.prepareStatement(getBeepTransactions);
+             ps.setString(1, CardNumber);
+             transactions = ps.executeQuery();
+             int total_transactions = 0;
+             double total_expenses = 0;
+             while(transactions.next())
+             {
+                 //computes the total number of transactions, and computes the total expenses;
+                 
+                 total_transactions++;
+                 total_expenses += Double.valueOf(transactions.getString("TRANSACTION_COST"));
+             }
+             
+             //updates the beep record
+             ps = conn.prepareStatement(updateCard);
+             ps.setString(1, remBalance);
+             ps.setString(2, ""+total_transactions);
+             ps.setString(3,""+total_expenses);
+             ps.setString(4,CardNumber);
+             ps.executeUpdate();
+
+             response.sendRedirect("SJSuccess");
               
         }
         catch(SQLException sqle)
@@ -105,9 +143,7 @@ public class BeepLogin extends HttpServlet {
         }
         
        
-                
-        
-   
+      
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

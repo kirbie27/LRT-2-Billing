@@ -9,24 +9,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Kirby Wenceslao
  */
-@WebServlet(name = "SingleJourneySuccess", urlPatterns = {"/SingleJourneySuccess"})
-public class BeepLogin extends HttpServlet {
+@WebServlet(name = "BeepTopUpSuccess", urlPatterns = {"/BeepTopUpSuccess"})
+public class BeepTopUpSuccess extends HttpServlet {
 
     Connection conn;
      
@@ -60,54 +56,8 @@ public class BeepLogin extends HttpServlet {
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException 
-    {
-        
-        
-         HttpSession session = request.getSession();
-        //get login inputs
-        
-        String username = request.getParameter("unameL").trim();
-        String password = request.getParameter("pwordL").trim();
-        
+            throws ServletException, IOException {
 
-        
-        String query1 = "SELECT * FROM BEEP_CARDS where CARD_NUMBER = ? and PASSWORD = ?";
-             
-        try
-        {
-            ServletContext sc = request.getServletContext();
-            
-            
-            PreparedStatement ps = conn.prepareStatement(query1);
-            ps.setString(1,username);
-            ps.setString(2,password);
-            
-            ResultSet loginResults = ps.executeQuery();
-            
-            if (loginResults.next())
-            {
-                session.setAttribute("CardNumber", username);
-                response.sendRedirect("BeepMenu");
-            }
-            else
-            {
-                sc.setAttribute("errorMessage","Incorrect Login Credentials");
-                response.sendRedirect("BeepLogin");
-            }
-             
-            
-              
-        }
-        catch(SQLException sqle)
-        {
-            sqle.printStackTrace();
-        }
-        
-       
-                
-        
-   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

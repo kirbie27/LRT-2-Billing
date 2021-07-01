@@ -25,8 +25,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Kirby Wenceslao
  */
-@WebServlet(name = "SingleJourneySuccess", urlPatterns = {"/SingleJourneySuccess"})
-public class BeepLogin extends HttpServlet {
+@WebServlet(name = "BeepJourneyTransactionConfirmation", urlPatterns = {"/BeepJourneyTransactionConfirmation"})
+public class BeepJourneyTransactionConfirmation extends HttpServlet {
 
     Connection conn;
      
@@ -60,54 +60,76 @@ public class BeepLogin extends HttpServlet {
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException 
-    {
+            throws ServletException, IOException {
+        //get card number from session
         
+        HttpSession session = request.getSession();
+        String CardNumber = (String) session.getAttribute("CardNumber");
         
-         HttpSession session = request.getSession();
-        //get login inputs
-        
-        String username = request.getParameter("unameL").trim();
-        String password = request.getParameter("pwordL").trim();
-        
+        //get parameters
+        ServletContext sc = request.getServletContext();
+        String from = request.getParameter("fromWhereB");
+        String to = request.getParameter("toWhereB");
 
+        //setup other queries and flags
+        String valid = "true";
+        String findStoredValue = "SELECT STORED_VALUE FROM BEEP_CARDS where CARD_NUMBER = ?";
+        String findFare = "SELECT FARE FROM STORED_VALUE_FARES where FROM_WHERE = ? and TO_WHERE = ?";
         
-        String query1 = "SELECT * FROM BEEP_CARDS where CARD_NUMBER = ? and PASSWORD = ?";
-             
         try
         {
-            ServletContext sc = request.getServletContext();
+            //get stored value
+            PreparedStatement ps = conn.prepareStatement(findStoredValue);
+            ps.setString(1, CardNumber);
+            ResultSet results = ps.executeQuery();
+            results.next();
+            String balance = results.getString("STORED_VALUE");
+            double balanceD = Double.valueOf(balance);
+            String remBalance = balance;
+            //get fare
             
-            
-            PreparedStatement ps = conn.prepareStatement(query1);
-            ps.setString(1,username);
-            ps.setString(2,password);
-            
-            ResultSet loginResults = ps.executeQuery();
-            
-            if (loginResults.next())
+            ps = conn.prepareStatement(findFare);
+            ps.setString(1, from);
+            ps.setString(2, to);
+            results = ps.executeQuery();
+
+            String fare = "";
+            if(results.next())
             {
-                session.setAttribute("CardNumber", username);
-                response.sendRedirect("BeepMenu");
+                //valid destinations
+                fare = results.getString("FARE");
+                double fareD = Double.valueOf(fare);
+                
+                double remainingBalance = balanceD - fareD;
+                remBalance = ""+remainingBalance;
+                if (remainingBalance < 0)
+                {
+                    //not enough balance
+                    remBalance = "Insufficient Balance";
+                    valid = "false";
+                }
             }
             else
             {
-                sc.setAttribute("errorMessage","Incorrect Login Credentials");
-                response.sendRedirect("BeepLogin");
+                //invalid destinations
+                fare = "Invalid Transaction";
+                valid = "false";
             }
-             
-            
-              
+             sc.setAttribute("balance", balance);
+             sc.setAttribute("remBalance", remBalance);
+             sc.setAttribute("fromB",from);
+             sc.setAttribute("toB",to);
+             sc.setAttribute("fareB",fare);
+             sc.setAttribute("openB", "flex");
+
+            sc.setAttribute("validB",valid);        
+            response.sendRedirect("BeepLRT2Portal");
+        
         }
         catch(SQLException sqle)
         {
-            sqle.printStackTrace();
+            
         }
-        
-       
-                
-        
-   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

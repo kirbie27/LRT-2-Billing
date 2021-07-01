@@ -33,7 +33,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background-color: #FFA647;
+                background-color: #FFC485;
                 overflow: scroll;
             }
             
@@ -269,7 +269,7 @@
         <section>
             <img src ="Assets/Pictures/LOGO.png">
             <h1>
-                LRT2 TRANSACTION PORTAL
+                LRT2 Transaction Portal
             </h1>
             
             <form method = "POST" action = "ConfirmTravel">

@@ -19,6 +19,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;  
 
 /**
  *
@@ -68,9 +70,12 @@ public class SingleJourneySuccess extends HttpServlet {
         String from = (String) sc.getAttribute("from");
         String to = (String) sc.getAttribute("to");
         String fare = (String) sc.getAttribute("fare");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");  
+        LocalDateTime now = LocalDateTime.now();  
+        String date = dtf.format(now);
         //get transaction content
         String query1 = "SELECT * FROM LRT_TRANSACTIONS";
-        String query2 = "INSERT INTO LRT_TRANSACTIONS VALUES(?,?,?,?,?)";
+        String query2 = "INSERT INTO LRT_TRANSACTIONS VALUES(?,?,?,?,?,?)";
                  
         try
         {
@@ -89,7 +94,8 @@ public class SingleJourneySuccess extends HttpServlet {
              ps.setString(2, ""+0);
              ps.setString(3, fare);
              ps.setString(4, from);
-             ps.setString(5, to);                              
+             ps.setString(5, to);    
+             ps.setString(6, date);
              ps.executeUpdate();
              
              response.sendRedirect("SJSuccess");

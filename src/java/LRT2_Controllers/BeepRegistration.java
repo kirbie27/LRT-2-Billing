@@ -62,9 +62,9 @@ public class BeepRegistration extends HttpServlet {
 
         //get registration inputs
         
-        String firstName = request.getParameter("fName");
-        String lastName = request.getParameter("lName");
-        String contactNumber = request.getParameter("cNumber");
+        String firstName = request.getParameter("fName").trim();
+        String lastName = request.getParameter("lName").trim();
+        String contactNumber = request.getParameter("cNumber").trim();
         
 
         

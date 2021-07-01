@@ -1,3 +1,8 @@
+<%-- 
+    Document   : transactionPortal
+    Created on : 06 20, 21, 6:54:43 PM
+    Author     : Kirby Wenceslao
+--%>
 
 <%@page import="LRT2_Models.Lrt2Stations, java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -8,7 +13,7 @@
         <meta name="viewport" http-equiv="Content-Type" content="width=device-width, initial-scale=1.0, text/html; charset=UTF-8">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200&display=swap" rel="stylesheet">
-        <title>Login Page</title>
+        <title>Beep Travel History</title>
         
         <style>
             
@@ -28,7 +33,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background-color: #F7F0F5;
+                 background-color: #0A2342;
                 overflow: scroll;
             }
             
@@ -40,13 +45,11 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: space-around;
-           
                 padding: 20px;
-                background-color: #0A2342;
-            
+                background-color: rgb(247, 240, 245);
                 border-radius: 40px 0px;
-                box-shadow: 5px 5px #FFA647;
-                color: white;
+                box-shadow: 5px 5px bisque;
+                color: black;
                 align-items: center;
                 
                
@@ -59,7 +62,7 @@
             body section form 
             {
                 box-sizing: border-box;
-                height: 400px;
+                height: 480px;
                 width: 100%;
                 display: flex;
                 flex-direction: column;
@@ -67,124 +70,157 @@
                 
             }
             
-            #error
+            #list
             {
-                text-align: center;
-                font-weight: bold;
-                color: #FFB05C;
-                text-transform: uppercase;
-                font-size: 15px;
+                display: flex;
+                min-height: 300px;
+                max-height: 300px;
+               
+                flex-direction: column;
+                overflow-y: auto;
+                flex-wrap: no-wrap;
+             
             }
             
-            .text
+            .transactions
             {
-                border: 2px solid black;
-                font-size: 18px;
-                padding: 10px;
-                font-weight: bold;
+                background-color: #EED3EA;
+                text-align: center;
+                font-size: clamp(10px,100%,15px);
+                padding: 5px;
+                min-height: 30px;
+                margin: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                
             }
-            .loginButtons
+            
+            .transactions:hover
+            {
+                cursor: pointer;
+                background-color: pink;
+                transition: linear 0.3s;
+                   
+            }
+            
+            .confirmButtons
             {
                 text-align: center;
-                background-color: #3F88C5;
+                background-color: #D08AC8;
                 text-decoration: none;
                 border: none;
                 font-size: 20px;
                 color: white;
                 cursor: pointer;
-                padding: 8px;
+                padding: 10px;
                 border-radius: 5px;
-                
             }
             
-            .loginButtons:hover
+            .confirmButtons:hover
             {
                 transition: linear 0.1s;
-                background-color: #FF890A;
-                font-weight: 900;
+                background-color: #FFA647;
+                 color: #0A2342;
+                font-weight: bold;
+   
             }
             
             h3
             {
                 font-size: clamp(25px,100%, 30px);
                 padding: 10px;
-               
             }
 
             
             section img
-            {  
+            {
+            
                 width: 50px;
                 height: 40px;
                 margin: 5px;
             }
-            
-            form input
-            {
-                padding: 5px;
-                font-size: 20px;
-                font-weight:  500;
-                
-            }
+
 
             @media only screen and (max-width: 550px)
             {
                 body
                 {
-                    background-color: #0A2342; 
+                   background-color: rgb(247, 240, 245);
                 }
+                
+                section, .mContent
+                {
+                    border-radius: 0px;
+                    height: 80vh !important;
+                    width: 100vh !important;
+                    
+                }
+                
                 
                 section
                 {
-                    border-radius: 0px;
-                    height: 70vh !important;
-                    width: 100vh !important;
                     box-shadow: 0px 3px #FFA647 !important;
-                   
                 }
                 
+                #list
+                {
+                    padding: 0px;
+                    min-height: 30vh;
+                    max-height: 30vh;
+                }
+                .transactions
+                {
+                    text-align: center;
+                    font-size: clamp(10px,100%,11px);      
+                    min-height: 25px;
+                   
+                    
+                }
+                
+                .confirmButtons
+                {
+                    font-size: 15px;
+                    
+                }
+                
+               
             }
         </style>
-        <script>
-            function scanMessage()
-            {
-                alert("Sorry! This feature is not yet available.");
-            }
-        </script>
         
     </head>
     <body>
-        <%
-             ServletContext sc = getServletContext(); 
-             String errorMessage = "";
-             
-             if (sc.getAttribute("errorMessage") != null)
-             {
-                 errorMessage = (String) sc.getAttribute("errorMessage");
-                 sc.removeAttribute("errorMessage");
-             }
-        %>
-          
+
+        
+  
         
         <section>
             <img src ="Assets/Pictures/LOGO.png">
             <h1>
-                LRT2 BEEP LOGIN
+                LRT2 Beep Transaction History
             </h1>
             
-            <form method = "POST" action = "ConfirmBeepCard">
-                <label for="unameL">Beep Card Number:</label>  
-                <input name="unameL" type ="text" placeholder="Enter Card Number here" required>
-     
-                <label for="pwordL">Beep Card Password:</label>  
-                <input name="pwordL" type ="password" placeholder="Enter Card Password here" required>
-                <p id = "error"><%= errorMessage%></p>
-                <hr>   
-
+            <form method = "POST" action = "">         
                 
-                <input type="submit" value = "Login" class = "loginButtons">
-                <a onclick=scanMessage() class = "loginButtons">Scan Beep Card (alternative)</a>
-                <a href = 'Index' class = "loginButtons">Go Back To Menu</a>
+                <p>Total Transactions: 9 </p>
+                <p>Total Expenses: 180 Php</p>
+                
+                <label>Transaction History</label> 
+                <hr>
+                <div id = "list">
+                    <div class = "transactions">08/28/2000 | From: Legarda | To: Legarda | Fare: 20php</div>
+                    <div class = "transactions">Transaction 2</div>
+                    <div class = "transactions">Transaction 3</div>
+              
+                    
+             
+                    
+                   
+                    
+                
+                </div>
+                <hr>
+                <a href = 'BeepMenu' class = "confirmButtons">Go Back To Beep Menu</a>
             </form>
                  
         

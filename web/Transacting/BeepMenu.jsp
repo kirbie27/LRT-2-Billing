@@ -1,12 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 06 18, 21, 11:49:21 PM
-    Author     : Kirby Wenceslao
---%>
-<%
-    session = request.getSession(false);
-    session.invalidate();
-%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,13 +6,15 @@
         <meta name="viewport" http-equiv="Content-Type" content="width=device-width, initial-scale=1.0, text/html; charset=UTF-8">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200&display=swap" rel="stylesheet">
-        <title>Thank you!</title>
+        <title>Beep Menu</title>
         
         <style>
             
             *
             {
                 font-family: 'Poppins', sans-serif;
+                margin: 0;
+                padding: 0;
             }
             body
             {
@@ -31,8 +24,7 @@
                 width: 100%;
                 justify-content: center;
                 align-items: center;
-                background-color: rgb(247, 240, 245);
-       
+                background-color: #0A2342;
             }
             
             section
@@ -45,8 +37,9 @@
                 align-items: center;
                 min-height: clamp(400px, 50vh, 500vh);
                 min-width: clamp(350px, 100vw, 500px);
-                background-color: #0A2342;
+                background-color: rgb(247, 240, 245);
                 border-radius: 40px 0px;
+               
             }
             
             section img
@@ -57,11 +50,11 @@
             }
             section div, section button
             {
-                background-color: #3F88C5;
-                padding: 25px;
+                background-color: #D08AC8;
+                padding: 20px;
                 width: 100%;
                 border: none;
-                color: white;
+                color: black;
                 border-radius: 10px;
                 font-size: clamp(15px,100%, 20px);
                 font-weight: 500;
@@ -70,6 +63,7 @@
             
             section button
             {
+                color: white;
                 cursor: pointer;
             }
             
@@ -85,42 +79,15 @@
             {
                 padding: 0px;
                 background-color: transparent;
-                font-size: clamp(40px,100%, 50px) !important;
+                font-size: clamp(25px,100%, 40px) !important;
                 border-radius: 0px;
-            }
-            
-            section hr
-            {
-                width: 100%;
-            }
-            
-   
-            .confirmButtons
-            {
-                text-align: center;
-                background-color: #3F88C5;
-                text-decoration: none;
-                border: none;
-                font-size: 20px;
-                color: white;
-                cursor: pointer;
-                padding: 10px;
-                border-radius: 5px;
-                
-            }
-            
-            .confirmButtons:hover
-            {
-                transition: linear 0.1s;
-                background-color: #8F3985;
-                font-weight: 900;
             }
             
             @media only screen and (max-width: 550px)
             {
                 body
                 {
-                    background-color: #0A2342; 
+                    background-color: rgb(247, 240, 245);
                 }
                 
                 section
@@ -128,19 +95,20 @@
                     border-radius: 0px;
                     height: 70vh !important;
                     width: 100vh !important;
+                    padding: 15px;
                     
                 }
                 
                 section button
                 {
-                    padding: 25px;
+                    padding: 15px;
                     border-radius: 0px;
                 }
                 
                 section div
                 {
         
-                    font-size: clamp(30px,100vw, 33px) !important;
+                     font-size: clamp(25px,100%, 40px) !important;
   
                 }
                 
@@ -150,12 +118,16 @@
     <body>
         <section>
             <img src ="Assets/Pictures/LOGO.png">
-            <hr>
-            <div>
-                Thank you for using the LRT2 Transaction Portal!
+            <div id = "BeepHeading">
+                Beep Menu
             </div>
-            <hr>
-            <a href = 'Index' class = "confirmButtons">GO BACK TO MENU</a>
+            <div>
+                What are you here for?
+            </div>
+            <button onclick="document.location='BeepLRT2Portal'">Travel</button>
+            <button onclick="document.location='BeepTopUpStart'">Top Up</button>
+            <button onclick="document.location='BeepTravelHistory'">Check Travel History</button>
+            <button onclick="document.location='Index'">Log Out Beep Card</button>
         </section>
     </body>
 </html>

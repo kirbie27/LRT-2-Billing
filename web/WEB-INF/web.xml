@@ -19,6 +19,34 @@
     </servlet-mapping>
     
     <servlet>
+        <servlet-name>BeepMenu</servlet-name>
+        <jsp-file>Transacting/BeepMenu.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BeepMenu</servlet-name>
+        <url-pattern>/BeepMenu</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>BeepTopUp</servlet-name>
+        <jsp-file>Transacting/BeepTopUp.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BeepTopUp</servlet-name>
+        <url-pattern>/BeepTopUp</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>BeepTravelHistory</servlet-name>
+        <jsp-file>Transacting/BeepHistory.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BeepTravelHistory</servlet-name>
+        <url-pattern>/BeepTravelHistory</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
         <servlet-name>TransactionPortalBeep</servlet-name>
         <jsp-file>Transacting/transactionPortalBeep.jsp</jsp-file>
     </servlet>
@@ -151,6 +179,162 @@
         <url-pattern>/SJTransactionSuccess</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>BeepFareCompute</servlet-name>
+        <servlet-class>LRT2_Controllers.BeepJourneyTransactionConfirmation</servlet-class>
+        
+        <init-param>
+            <param-name>jdbcClassName</param-name>
+            <param-value>org.apache.derby.jdbc.ClientDriver</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbUserName</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbPassword</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>jdbcDriverURL</param-name>
+            <param-value>jdbc:derby</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbHostName</param-name>
+            <param-value>localhost</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbPort</param-name>
+            <param-value>1527</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databaseName</param-name>
+            <param-value>LRT2Cards</param-value>
+        </init-param>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>BeepFareCompute</servlet-name>
+        <url-pattern>/ConfirmBeepTravel</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>BeepSuccess</servlet-name>
+        <servlet-class>LRT2_Controllers.BeepJourneySuccess</servlet-class>
+        
+        <init-param>
+            <param-name>jdbcClassName</param-name>
+            <param-value>org.apache.derby.jdbc.ClientDriver</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbUserName</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbPassword</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>jdbcDriverURL</param-name>
+            <param-value>jdbc:derby</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbHostName</param-name>
+            <param-value>localhost</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbPort</param-name>
+            <param-value>1527</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databaseName</param-name>
+            <param-value>LRT2Cards</param-value>
+        </init-param>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>BeepSuccess</servlet-name>
+        <url-pattern>/BeepTransactionSuccess</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>BeepTopUpStart</servlet-name>
+        <servlet-class>LRT2_Controllers.BeepTopUpStart</servlet-class>
+        
+        <init-param>
+            <param-name>jdbcClassName</param-name>
+            <param-value>org.apache.derby.jdbc.ClientDriver</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbUserName</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbPassword</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>jdbcDriverURL</param-name>
+            <param-value>jdbc:derby</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbHostName</param-name>
+            <param-value>localhost</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbPort</param-name>
+            <param-value>1527</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databaseName</param-name>
+            <param-value>LRT2Cards</param-value>
+        </init-param>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>BeepTopUpStart</servlet-name>
+        <url-pattern>/BeepTopUpStart</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>BeepTopUpConfirmation</servlet-name>
+        <servlet-class>LRT2_Controllers.BeepTopUpConfirmation</servlet-class>
+        
+        <init-param>
+            <param-name>jdbcClassName</param-name>
+            <param-value>org.apache.derby.jdbc.ClientDriver</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbUserName</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbPassword</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>jdbcDriverURL</param-name>
+            <param-value>jdbc:derby</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbHostName</param-name>
+            <param-value>localhost</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbPort</param-name>
+            <param-value>1527</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databaseName</param-name>
+            <param-value>LRT2Cards</param-value>
+        </init-param>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>BeepTopUpConfirmation</servlet-name>
+        <url-pattern>/BeepTopUpConfirmation</url-pattern>
+    </servlet-mapping>
+   
      <servlet>
         <servlet-name>BeepLoginConfirmation</servlet-name>
         <servlet-class>LRT2_Controllers.BeepLogin</servlet-class>

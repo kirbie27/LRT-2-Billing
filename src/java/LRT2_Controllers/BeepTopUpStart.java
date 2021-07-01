@@ -25,9 +25,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Kirby Wenceslao
  */
-@WebServlet(name = "SingleJourneySuccess", urlPatterns = {"/SingleJourneySuccess"})
-public class BeepLogin extends HttpServlet {
-
+@WebServlet(name = "BeepTopUpStart", urlPatterns = {"/BeepTopUpStart"})
+public class BeepTopUpStart extends HttpServlet {
     Connection conn;
      
     public void init(ServletConfig config) throws ServletException 
@@ -58,56 +57,36 @@ public class BeepLogin extends HttpServlet {
             System.out.println("ClassNotFoundException error occured - " + nfe.getMessage());
         }
     }
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException 
-    {
+            throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
+        ServletContext sc = request.getServletContext();
+        String CardNumber = (String) session.getAttribute("CardNumber");
+                
+        String findBalance = "SELECT STORED_VALUE FROM BEEP_CARDS where CARD_NUMBER = ?";
         
-         HttpSession session = request.getSession();
-        //get login inputs
-        
-        String username = request.getParameter("unameL").trim();
-        String password = request.getParameter("pwordL").trim();
-        
-
-        
-        String query1 = "SELECT * FROM BEEP_CARDS where CARD_NUMBER = ? and PASSWORD = ?";
-             
         try
         {
-            ServletContext sc = request.getServletContext();
+            PreparedStatement ps = conn.prepareStatement(findBalance);
+            ps.setString(1, CardNumber);
+           
+            ResultSet results = ps.executeQuery();
+            results.next();
+            String balanceT = results.getString("STORED_VALUE");
             
+            sc.setAttribute("balanceT", balanceT);
             
-            PreparedStatement ps = conn.prepareStatement(query1);
-            ps.setString(1,username);
-            ps.setString(2,password);
-            
-            ResultSet loginResults = ps.executeQuery();
-            
-            if (loginResults.next())
-            {
-                session.setAttribute("CardNumber", username);
-                response.sendRedirect("BeepMenu");
-            }
-            else
-            {
-                sc.setAttribute("errorMessage","Incorrect Login Credentials");
-                response.sendRedirect("BeepLogin");
-            }
-             
-            
-              
+            response.sendRedirect("BeepTopUp");
+        
         }
         catch(SQLException sqle)
         {
             sqle.printStackTrace();
-        }
+        }      
         
-       
-                
         
-   
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -69,31 +69,31 @@ public class SingleJourneyTransactionConfirmation extends HttpServlet {
         
         try
         {
-        PreparedStatement ps = conn.prepareStatement(findFare);
-        ps.setString(1, from);
-        ps.setString(2, to);
-        
-     
-                
-        ResultSet results = ps.executeQuery();
-        String fare = "";
-        if(results.next())
-        {
-            fare = results.getString("FARE");
-        }
-        else
-        {
-            //invalid destination
-            fare = "INVALID TRANSACTION";
-            valid = "false";
-        }
-         sc.setAttribute("from",from);
-         sc.setAttribute("to",to);
-         sc.setAttribute("fare",fare);
-         sc.setAttribute("open", "flex");
-        
-        sc.setAttribute("valid",valid);        
-        response.sendRedirect("LRT2Portal");
+            PreparedStatement ps = conn.prepareStatement(findFare);
+            ps.setString(1, from);
+            ps.setString(2, to);
+
+
+
+            ResultSet results = ps.executeQuery();
+            String fare = "";
+            if(results.next())
+            {
+                fare = results.getString("FARE");
+            }
+            else
+            {
+                //invalid destination
+                fare = "Invalid Transaction";
+                valid = "false";
+            }
+             sc.setAttribute("from",from);
+             sc.setAttribute("to",to);
+             sc.setAttribute("fare",fare);
+             sc.setAttribute("open", "flex");
+
+            sc.setAttribute("valid",valid);        
+            response.sendRedirect("LRT2Portal");
         
         }
         catch(SQLException sqle)
