@@ -4,6 +4,7 @@
     Author     : Kirby Wenceslao
 --%>
 
+<%@page import="java.sql.ResultSet"%>
 <%@page import="LRT2_Models.Lrt2Stations, java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -191,7 +192,28 @@
     </head>
     <body>
 
-        
+        <%
+            ServletContext sc = getServletContext();
+            String totalTransactions = "";
+            String totalExpenses = "";
+            ResultSet transactions = null;
+            
+            if(sc.getAttribute("totalTransactions") != null)
+            {
+                totalTransactions = (String)sc.getAttribute("totalTransactions");
+            }
+            
+            if(sc.getAttribute("totalExpenses") != null)
+            {
+                totalExpenses = (String) sc.getAttribute("totalExpenses");
+            }
+            
+            if(sc.getAttribute("transactions") != null)
+            {
+               transactions = (ResultSet) sc.getAttribute("transactions");
+            }
+            
+        %>
   
         
         <section>
@@ -202,22 +224,35 @@
             
             <form method = "POST" action = "">         
                 
-                <p>Total Transactions: 9 </p>
-                <p>Total Expenses: 180 Php</p>
+                <p>Total Transactions: <%= totalTransactions %> </p>
+                <p>Total Expenses: <%= totalExpenses %> Php</p>
                 
                 <label>Transaction History</label> 
                 <hr>
                 <div id = "list">
-                    <div class = "transactions">08/28/2000 | From: Legarda | To: Legarda | Fare: 20php</div>
-                    <div class = "transactions">Transaction 2</div>
-                    <div class = "transactions">Transaction 3</div>
-              
-                    
-             
-                    
+                    <%
+                        if (totalTransactions.equals("0"))
+                        {
+                            String s = String.format("<div class = 'transactions'>%s</div>","No Transactions Yet.");
+                            out.println(s);
+                        }
+                        else
+                        {
+                            int transactionCount = Integer.valueOf(totalTransactions);
+                            for (int i = 1; i <= transactionCount; i++)
+                            {
+                                transactions.next();
+                                String info = String.format("%s | From: %s | To: %s | Fare: %s", transactions.getString("TRANSACTION_DATE"),
+                                        transactions.getString("FROM_WHERE"), transactions.getString("TO_WHERE"), transactions.getString("TRANSACTION_COST"));
+                                String s = String.format("<div class = 'transactions'>%s</div>",info);
+                                
+                                out.println(s);
+                            }
+                        }
+                        
+                    %>
                    
-                    
-                
+            
                 </div>
                 <hr>
                 <a href = 'BeepMenu' class = "confirmButtons">Go Back To Beep Menu</a>

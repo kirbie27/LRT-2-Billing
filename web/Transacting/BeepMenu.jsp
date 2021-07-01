@@ -126,7 +126,7 @@
             </div>
             <button onclick="document.location='BeepLRT2Portal'">Travel</button>
             <button onclick="document.location='BeepTopUpStart'">Top Up</button>
-            <button onclick="document.location='BeepTravelHistory'">Check Travel History</button>
+            <button onclick="document.location='BeepTransactionHistory'">Check Travel History</button>
             <button onclick="document.location='Index'">Log Out Beep Card</button>
         </section>
     </body>
