@@ -9,13 +9,19 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -57,6 +63,32 @@ public class BeepTopUpSuccess extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        HttpSession session = request.getSession();
+        String CardNumber = (String) session.getAttribute("CardNumber");
+      
+        
+        //getServletContext and the details
+        ServletContext sc = request.getServletContext();
+        String newBalance = (String) sc.getAttribute("afterBalance");
+        
+        String query = "UPDATE BEEP_CARDS SET STORED_VALUE = ? where CARD_NUMBER = ?";
+        
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1,newBalance);
+            ps.setString(2,CardNumber);
+            
+            ps.executeUpdate();
+            response.sendRedirect("BeepMenu");
+        }
+        catch(SQLException sqle)
+        {
+            sqle.printStackTrace();
+        }
+        
+  
 
     }
 

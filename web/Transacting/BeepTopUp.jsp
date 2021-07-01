@@ -256,7 +256,7 @@
         %>
         
         <div id = "transactionModal" class = "modal"  style = <% out.println(String.format("\"display: %s;\"",open)); %> >
-            <form class ="mContent" action ="" method = "POST">
+            <form class ="mContent" action ="BeepTopUpSuccess" method = "POST">
                 <h3>Transaction Summary</h3>
                 <hr>
                 <%
