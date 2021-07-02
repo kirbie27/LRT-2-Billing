@@ -1,8 +1,7 @@
-<%-- 
-    Document   : index
-    Created on : 06 18, 21, 11:49:21 PM
-    Author     : Kirby Wenceslao
---%>
+<%
+    session = request.getSession(false);
+    session.invalidate();
+%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

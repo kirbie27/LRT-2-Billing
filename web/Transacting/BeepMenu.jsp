@@ -1,3 +1,11 @@
+<%
+    session = request.getSession(false);
+    if (session.getAttribute("CardNumber") == null)
+    {
+        response.sendRedirect("Index");
+    }
+%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

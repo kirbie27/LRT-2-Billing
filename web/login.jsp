@@ -1,4 +1,10 @@
-
+<%
+    session = request.getSession(false);
+    if (session.getAttribute("CardNumber") != null)
+    {
+        response.sendRedirect("BeepMenu");
+    }
+%>
 <%@page import="LRT2_Models.Lrt2Stations, java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

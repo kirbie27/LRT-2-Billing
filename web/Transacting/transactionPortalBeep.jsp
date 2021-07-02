@@ -1,8 +1,10 @@
-<%-- 
-    Document   : transactionPortal
-    Created on : 06 20, 21, 6:54:43 PM
-    Author     : Kirby Wenceslao
---%>
+<%
+    session = request.getSession(false);
+    if (session.getAttribute("CardNumber") == null)
+    {
+        response.sendRedirect("Index");
+    }
+%>
 
 <%@page import="LRT2_Models.Lrt2Stations, java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
