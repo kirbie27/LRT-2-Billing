@@ -5,21 +5,51 @@ Files can be seen after cloning the project on your own ide.
 
 Sample pictures of the runtime of the web application.
 
-##Welcome Page
+## Welcome Page
 
 <p align="center">
-<img src="1.png" width="800" title="Landing Page">
+<img src="welcome.png" width="800" title="Landing Page">
 </p>
 
-##Travel Page
+## Travel Page
 
 <p align="center">
-<img src="1.png" width="800" title="Landing Page">
+<img src="t1.png" width="800" title="Travel Page 1">
+</p>
+<p align="center">
+<img src="t2.png" width="800" title="Travel Summary Page">
+</p>
+<p align="center">
+<img src="t3.png" width="800" title="Travel End">
 </p>
 
-##Beep Profile Pages
+## Register Beep
 
 <p align="center">
-<img src="1.png" width="800" title="Landing Page">
+<img src="b1.png" width="800" title="Travel Page 1">
 </p>
+<p align="center">
+<img src="b2.png" width="800" title="Travel Summary Page">
+</p>
+<p align="center">
+<img src="b3.png" width="800" title="Travel End">
+</p>
+
+## Beep Profile Pages
+<p align="center">
+<img src="tb1.png" width="800" title="Travel Page 1">
+</p>
+<p align="center">
+<img src="tb2.png" width="800" title="Travel Summary Page">
+</p>
+<p align="center">
+<img src="tb4.png" width="800" title="Travel End">
+</p>
+<p align="center">
+<img src="tb5.png" width="800" title="Travel Summary Page">
+</p>
+<p align="center">
+<img src="tb6.png" width="800" title="Travel End">
+</p>
+
 
