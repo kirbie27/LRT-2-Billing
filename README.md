@@ -6,7 +6,7 @@ Files can be seen after cloning the project on your own ide, images on the root 
 ## Directory of the Repository
 
 <p align="center">
-<img src="directory.png" width="400" title="Landing Page">
+<img src="directory.png" width="200" title="Landing Page">
 </p>
 
 Sample pictures of the runtime of the web application.
