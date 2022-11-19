@@ -162,8 +162,6 @@
                 text-align: center;
                 justify-content: center !important;
                 align-items: center !important;
-                
-             
             }
         
 
