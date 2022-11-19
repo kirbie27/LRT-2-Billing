@@ -58,4 +58,6 @@ Sample pictures of the runtime of the web application.
 <img src="tb6.png" width="800" title="Travel End">
 </p>
 
-
+<p>
+Note: To access the code, you may switch to the master branch as I was still inexperienced with github when I created this repository
+</p>
